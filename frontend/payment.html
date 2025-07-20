@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MechObject - Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/payment.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">MechObject</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="./cart.html">Back to Cart</a>
+                <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="payment-card">
+                    <h3>Checkout</h3>
+                    
+                    <!-- Customer Information -->
+                    <div class="section">
+                        <h5>Customer Information</h5>
+                        <form id="customerForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" rows="3" required></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="section">
+                        <h5>Payment Method</h5>
+                        <div class="payment-methods">
+                            <div class="payment-option active" data-method="paypal">
+                                <div class="payment-option-content">
+                                    <div class="paypal-logo">PayPal</div>
+                                    <p>Pay securely with your PayPal account</p>
+                                </div>
+                            </div>
+                            <div class="payment-option" data-method="card">
+                                <div class="payment-option-content">
+                                    <div class="card-logo">💳</div>
+                                    <p>Credit/Debit Card (Coming Soon)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PayPal Mock Interface -->
+                    <div class="section" id="paypalSection">
+                        <h5>PayPal Payment</h5>
+                        <div class="paypal-mock">
+                            <div class="paypal-header">
+                                <span class="paypal-logo-large">PayPal</span>
+                            </div>
+                            <div class="paypal-content">
+                                <p>You will be redirected to PayPal to complete your payment securely.</p>
+                                <div class="paypal-amount" id="paypalAmount">
+                                    Total: $0.00
+                                </div>
+                                <button class="btn-paypal" onclick="processPayment()">
+                                    Pay with PayPal
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h5>Order Summary</h5>
+                    <div id="orderItems">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                    <div class="order-total" id="orderTotal">
+                        <!-- Order total will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/payment.js"></script>
+</body>
+</html>

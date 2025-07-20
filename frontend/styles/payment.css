@@ -1,0 +1,252 @@
+/* Global Styles */
+body {
+    background-color: #1a2226;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navigation */
+.navbar {
+    background-color: #222d32;
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important;
+}
+
+/* Payment Card */
+.payment-card {
+    background-color: #222d32;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.payment-card h3 {
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #333;
+}
+
+.section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.section h5 {
+    color: #007bff;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+.form-label {
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    background-color: #1a2226;
+    border: 2px solid #333;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    background-color: #1a2226;
+    border-color: #007bff;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Payment Methods */
+.payment-methods {
+    display: grid;
+    gap: 1rem;
+}
+
+.payment-option {
+    background-color: #1a2226;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+    border-color: #007bff;
+}
+
+.payment-option.active {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.payment-option-content {
+    text-align: center;
+}
+
+.paypal-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0070ba;
+    margin-bottom: 0.5rem;
+}
+
+.card-logo {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* PayPal Mock Interface */
+.paypal-mock {
+    background-color: #1a2226;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #0070ba;
+}
+
+.paypal-header {
+    background-color: #0070ba;
+    padding: 1rem;
+    text-align: center;
+}
+
+.paypal-logo-large {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.paypal-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.paypal-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    margin: 1.5rem 0;
+}
+
+.btn-paypal {
+    background-color: #ffc439;
+    color: #003087;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-paypal:hover {
+    background-color: #ffb700;
+    transform: translateY(-2px);
+}
+
+/* Order Summary */
+.order-summary {
+    background-color: #222d32;
+    border-radius: 15px;
+    padding: 2rem;
+    position: sticky;
+    top: 20px;
+}
+
+.order-summary h5 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-info h6 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.order-item-quantity {
+    color: #cccccc;
+    font-size: 0.8rem;
+}
+
+.order-item-price {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.order-total {
+    border-top: 2px solid #007bff;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Success Message */
+.success-message {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-card,
+    .order-summary {
+        padding: 1.5rem;
+    }
+    
+    .paypal-content {
+        padding: 1.5rem;
+    }
+    
+    .order-summary {
+        position: static;
+        margin-top: 1rem;
+    }
+}
