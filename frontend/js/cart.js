@@ -1,43 +1,37 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = "http://localhost:8000/api";
 
 // Global variables
 let cart = [];
 
 // Check authentication
 function checkAuth() {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  if (!user.id) {
-    window.location.href = './login.html';
-    return false;
-  }
-  return true;
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  return user.id ? true : false;
 }
 
 // Get fetch options based on auth type
 function getFetchOptions(additionalOptions = {}) {
   const baseOptions = {
-    credentials: 'include', // Always include cookies
-    ...additionalOptions
+    credentials: "include", // Always include cookies
+    ...additionalOptions,
   };
-  
+
   return baseOptions;
 }
 
 // Load cart items from database
 async function loadCartItems() {
-  if (!checkAuth()) return;
-  
-  const cartItemsContainer = document.getElementById('cartItems');
-  const cartSummary = document.getElementById('cartSummary');
-  
+  const cartItemsContainer = document.getElementById("cartItems");
+  const cartSummary = document.getElementById("cartSummary");
+
   try {
     const response = await fetch(`${API_BASE_URL}/cart`, getFetchOptions());
-    
+
     if (response.ok) {
       const data = await response.json();
       cart = data.data.cartItems;
-      
+
       if (cart.length === 0) {
         cartItemsContainer.innerHTML = `
           <div class="col-12">
@@ -48,38 +42,44 @@ async function loadCartItems() {
             </div>
           </div>
         `;
-        cartSummary.innerHTML = '';
+        cartSummary.innerHTML = "";
         return;
       }
-      
+
       displayCartItems(cart);
     } else {
-      cartItemsContainer.innerHTML = '<div class="col-12 text-center">Error loading cart items</div>';
+      cartItemsContainer.innerHTML =
+        '<div class="col-12 text-center">Error loading cart items</div>';
     }
   } catch (error) {
-    cartItemsContainer.innerHTML = '<div class="col-12 text-center">Network error</div>';
+    cartItemsContainer.innerHTML =
+      '<div class="col-12 text-center">Network error</div>';
   }
 }
 
 // Display cart items
 function displayCartItems(cartItems) {
-  const cartItemsContainer = document.getElementById('cartItems');
-  const cartSummary = document.getElementById('cartSummary');
-  
-  let cartHTML = '';
+  const cartItemsContainer = document.getElementById("cartItems");
+  const cartSummary = document.getElementById("cartSummary");
+
+  let cartHTML = "";
   let totalAmount = 0;
-  
-  cartItems.forEach(cartItem => {
+
+  cartItems.forEach((cartItem) => {
     const product = cartItem.product;
     const itemTotal = parseFloat(product.price) * cartItem.quantity;
     totalAmount += itemTotal;
-    
+
     cartHTML += `
       <div class="col-12">
         <div class="cart-item">
           <div class="row align-items-center">
             <div class="col-md-2">
-              <img src="${product.image ? `http://localhost:8000/uploads/products/${product.image}` : 'https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg'}" 
+              <img src="${
+                product.image
+                  ? `http://localhost:8000/uploads/products/${product.image}`
+                  : "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=1024x1024&w=is&k=20&c=Bs1RdueQnaAcO888WBIQsC6NvA7aVTzeRVzSd8sJfUg="
+              }" 
                    alt="${product.name}" class="cart-item-image">
             </div>
             <div class="col-md-4">
@@ -93,22 +93,30 @@ function displayCartItems(cartItems) {
             </div>
             <div class="col-md-3">
               <div class="quantity-controls">
-                <button class="quantity-btn" onclick="updateQuantity(${product.id}, ${cartItem.quantity - 1})" ${cartItem.quantity <= 1 ? 'disabled' : ''}>-</button>
+                <button class="quantity-btn" onclick="updateQuantity(${
+                  product.id
+                }, ${cartItem.quantity - 1})" ${
+      cartItem.quantity <= 1 ? "disabled" : ""
+    }>-</button>
                 <span class="quantity-display">${cartItem.quantity}</span>
-                <button class="quantity-btn" onclick="updateQuantity(${product.id}, ${cartItem.quantity + 1})">+</button>
+                <button class="quantity-btn" onclick="updateQuantity(${
+                  product.id
+                }, ${cartItem.quantity + 1})">+</button>
               </div>
             </div>
             <div class="col-md-1">
-              <button class="btn btn-danger btn-sm" onclick="removeFromCart(${product.id})">Remove</button>
+              <button class="btn btn-danger btn-sm" onclick="removeFromCart(${
+                product.id
+              })">Remove</button>
             </div>
           </div>
         </div>
       </div>
     `;
   });
-  
+
   cartItemsContainer.innerHTML = cartHTML;
-  
+
   // Display cart summary
   cartSummary.innerHTML = `
     <h4>Order Summary</h4>
@@ -136,64 +144,70 @@ async function updateQuantity(productId, newQuantity) {
     removeFromCart(productId);
     return;
   }
-  
+
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/${productId}`, getFetchOptions({
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ quantity: newQuantity })
-    }));
-    
+    const response = await fetch(
+      `${API_BASE_URL}/cart/${productId}`,
+      getFetchOptions({
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quantity: newQuantity }),
+      })
+    );
+
     if (response.ok) {
       loadCartItems(); // Reload to update display
     } else {
-      alert('Failed to update quantity');
+      alert("Failed to update quantity");
     }
   } catch (error) {
-    alert('Network error. Please try again.');
+    alert("Network error. Please try again.");
   }
 }
 
 // Remove from cart
 async function removeFromCart(productId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/cart/${productId}`, getFetchOptions({
-      method: 'DELETE'
-    }));
-    
+    const response = await fetch(
+      `${API_BASE_URL}/cart/${productId}`,
+      getFetchOptions({
+        method: "DELETE",
+      })
+    );
+
     if (response.ok) {
       loadCartItems(); // Reload to update display
     } else {
-      alert('Failed to remove item');
+      alert("Failed to remove item");
     }
   } catch (error) {
-    alert('Network error. Please try again.');
+    alert("Network error. Please try again.");
   }
 }
 
 // Proceed to checkout
 function proceedToCheckout() {
   if (cart.length === 0) {
-    alert('Your cart is empty!');
+    alert("Your cart is empty!");
     return;
   }
-  
-  window.location.href = './payment.html';
+
+  window.location.href = "./payment.html";
 }
 
 // Setup logout
 function setupLogout() {
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", async function(e) {
+    logoutBtn.addEventListener("click", async function (e) {
       e.preventDefault();
 
       try {
         const response = await fetch(`${API_BASE_URL}/auth/logout`, {
           method: "POST",
-          credentials: "include"
+          credentials: "include",
         });
 
         if (!response.ok) {
@@ -210,7 +224,10 @@ function setupLogout() {
   }
 }
 
-
 // Initialize page
-setupLogout();
-loadCartItems();
+if (checkAuth()) {
+  setupLogout();
+  loadCartItems();
+} else {
+  window.location.href = "./login.html";
+}

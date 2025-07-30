@@ -120,7 +120,7 @@ function displayProducts(products) {
     return `
       <div class="col-md-6 mb-4">
         <div class="product-card">
-          <img src="${product.image ? `http://localhost:8000/uploads/products/${product.image}` : 'https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg'}" 
+          <img src="${product.image ? `http://localhost:8000/uploads/products/${product.image}` : 'https://media1.thehungryjpeg.com/thumbs2/ori_3672498_nxoe786r8fhp72m1wbao1au7dw8qehgwz9dzn8q8_white-studio-background-empty-gray-room-blank-product-display-backdr.jpg'}" 
                alt="${product.name}" class="product-image">
           <div class="product-info">
             <h5 class="product-name">${product.name}</h5>
