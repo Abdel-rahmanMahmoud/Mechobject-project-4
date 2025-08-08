@@ -4,12 +4,15 @@ const API_BASE_URL = 'http://localhost:8000/api';
 // Check admin authentication
 function checkAdminAuth() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const authType = localStorage.getItem('authType');
   
   if (!user.id || user.role !== 'ADMIN') {
+    alert('Access denied. Admin privileges required.');
+    window.location.href = './index.html';
     return false;
   }
   
-  return { user };
+  return { user, authType };
 }
 
 // Get fetch options based on auth type
@@ -38,7 +41,7 @@ function setupTabs() {
       // Show target tab content
       tabContents.forEach(content => {
         content.classList.remove('active');
-        if (content.id === targetTab ) {
+        if (content.id === targetTab + '-tab') {
           content.classList.add('active');
         }
       });
@@ -341,7 +344,4 @@ if (checkAdminAuth()) {
   setupEditProduct();
   setupLogout();
   loadProducts(); // Load products by default
-}else {
-  console.error("Admin authentication failed. Redirecting to login page.");
-  window.location.href = "./index.html";
 }
