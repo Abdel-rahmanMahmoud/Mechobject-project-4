@@ -1,3 +1,5 @@
-/backend/node_modules
-/frontend/.env
-/20241225000001-demo-users.js
+**/node_modules/
+.env
+!*.env.example
+
+20241225000001-demo-users.js
